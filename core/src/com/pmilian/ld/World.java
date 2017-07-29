@@ -17,6 +17,7 @@ public class World {
     public TextureAtlas atlas;
     public List<Jerrycan> jerrycans;
     public List<Jerrycan> jerrycansToRemove;
+    public Generator generator;
 
     private PlayerController controller;
     private Player player;
@@ -24,7 +25,6 @@ public class World {
     private Sprite map;
     private List<Rectangle> obstacles;
     private Rectangle safeZone;
-    private Generator generator;
 
     World(TextureAtlas atlas) {
         this.atlas = atlas;
@@ -39,7 +39,7 @@ public class World {
     }
 
     private void initGenerator() {
-        generator = new Generator(atlas, 219, 320, 10, 6);
+        generator = new Generator(atlas, 219, 325, 10, 6);
     }
 
     private void initJerrycans() {

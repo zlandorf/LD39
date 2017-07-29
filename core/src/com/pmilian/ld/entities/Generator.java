@@ -11,13 +11,13 @@ public class Generator  {
 
     private static final float FUEL_CONSUMPTION = .01f;
 
-    float x, y;
     public Rectangle boudingBox;
+    public float power = 50;
 
-    Animation<TextureRegion> animation;
-    float stateTime = 0;
+    private float x, y;
+    private Animation<TextureRegion> animation;
+    private float stateTime = 0;
 
-    float power = 50;
 
     public Generator(TextureAtlas atlas, float x, float y, float width, float height) {
         animation = new Animation<>(0.13f, atlas.findRegions("generator"), Animation.PlayMode.LOOP);
@@ -29,7 +29,6 @@ public class Generator  {
     public void update() {
         power -= FUEL_CONSUMPTION;
         power = Math.max(0, power);
-        System.out.println(power);
     }
 
     public void render(Batch batch) {

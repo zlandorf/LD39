@@ -2,9 +2,11 @@ package com.pmilian.ld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 public class GameScreen implements Screen {
@@ -17,13 +19,15 @@ public class GameScreen implements Screen {
 
     private World world;
 
+    private ShapeRenderer shapeRenderer;
+
     public GameScreen(LD39 game) {
         this.game = game;
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(250, 160, camera);
         this.atlas = new TextureAtlas("sprites.txt");
-
         this.world = new World(atlas);
+        this.shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -44,6 +48,21 @@ public class GameScreen implements Screen {
         game.batch.begin();
         world.render(game.batch);
         game.batch.end();
+
+        renderPowerLeft();
+    }
+
+    private void renderPowerLeft() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(10, Gdx.graphics.getHeight() - 40, 250, 30);
+        shapeRenderer.rect(5, Gdx.graphics.getHeight() - 35, 260, 20);
+
+        float maxPower = 100;
+        float ratio = Math.min(1, world.generator.power / maxPower);
+        shapeRenderer.setColor(Color.GREEN);
+        shapeRenderer.rect(10, Gdx.graphics.getHeight() - 35, 250 * ratio, 20);
+        shapeRenderer.end();
     }
 
     @Override
@@ -67,5 +86,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         atlas.dispose();
+        shapeRenderer.dispose();
     }
 }
