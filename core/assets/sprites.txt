@@ -1,0 +1,19 @@
+sprites.png
+size: 11, 8
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+player
+  rotate: false
+  xy: 0, 0
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+zombie
+  rotate: false
+  xy: 6, 0
+  size: 5, 8
+  orig: 5, 8
+  offset: 0, 0
+  index: -1
