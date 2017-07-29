@@ -1,18 +1,39 @@
 sprites.png
-size: 11, 8
+size: 512, 520
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-player
+car
+  rotate: false
+  xy: 14, 0
+  size: 17, 7
+  orig: 17, 7
+  offset: 0, 0
+  index: -1
+jerrycan
   rotate: false
   xy: 0, 0
+  size: 3, 4
+  orig: 3, 4
+  offset: 0, 0
+  index: -1
+map
+  rotate: false
+  xy: 0, 8
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 8, 0
   size: 6, 8
   orig: 6, 8
   offset: 0, 0
   index: -1
 zombie
   rotate: false
-  xy: 6, 0
+  xy: 3, 0
   size: 5, 8
   orig: 5, 8
   offset: 0, 0

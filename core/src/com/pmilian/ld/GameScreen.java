@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.pmilian.ld.controller.PlayerController;
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
     private Player player;
     private List<Entity> zombies;
 
+    private Sprite map;
 
     public GameScreen(LD39 game) {
         this.game = game;
@@ -34,6 +36,7 @@ public class GameScreen implements Screen {
         this.viewport = new ExtendViewport(120, 80, camera);
 
         this.atlas = new TextureAtlas("sprites.txt");
+        this.map = atlas.createSprite("map");
         this.player = new Player(atlas, 0, 0);
         this.controller = new PlayerController(player);
         this.zombies = new ArrayList<Entity>();
@@ -52,10 +55,15 @@ public class GameScreen implements Screen {
             zombie.update();
         }
 
+        camera.position.set(player.x, player.y, 0);
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
+
         Gdx.gl.glClearColor(0.9f, 0.9f, 0.9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
+        map.draw(game.batch);
         for (Entity zombie : zombies) {
             zombie.render(game.batch);
         }
