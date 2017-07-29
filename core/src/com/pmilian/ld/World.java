@@ -39,7 +39,7 @@ public class World {
     }
 
     private void initGenerator() {
-        generator = new Generator(atlas, 219, 320);
+        generator = new Generator(atlas, 219, 320, 10, 6);
     }
 
     private void initJerrycans() {
@@ -94,7 +94,7 @@ public class World {
     }
 
     private void collideWithGenerator() {
-        if (player.sprite.getBoundingRectangle().overlaps(generator.sprite.getBoundingRectangle())) {
+        if (player.sprite.getBoundingRectangle().overlaps(generator.boudingBox)) {
             player.collideWithGenerator(generator);
         }
     }
