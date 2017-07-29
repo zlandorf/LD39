@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Generator  {
 
+    private static final float FUEL_CONSUMPTION = .01f;
+
     float x, y;
     public Rectangle boudingBox;
 
@@ -25,11 +27,17 @@ public class Generator  {
     }
 
     public void update() {
-
+        power -= FUEL_CONSUMPTION;
+        power = Math.max(0, power);
+        System.out.println(power);
     }
 
     public void render(Batch batch) {
-        stateTime += Gdx.graphics.getDeltaTime();
+        if (power > 0) {
+            stateTime += Gdx.graphics.getDeltaTime();
+        } else {
+            stateTime = 0;
+        }
         TextureRegion frame = animation.getKeyFrame(stateTime);
         batch.draw(frame, x, y);
     }
