@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
 
         this.atlas = new TextureAtlas("sprites.txt");
         this.map = atlas.createSprite("map");
-        this.player = new Player(atlas, 0, 0);
+        this.player = new Player(atlas, 220, 300);
         this.controller = new PlayerController(player);
         this.zombies = new ArrayList<Entity>();
         this.zombies.add(new Zombie(player, atlas, 50, 50));

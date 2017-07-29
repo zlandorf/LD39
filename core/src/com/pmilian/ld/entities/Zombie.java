@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class Zombie extends Entity {
 
     private static final float MOVE_DISTANCE = 1f;
-    private static final float ZOMBIE_MAX_SPEED = 0.04f;
+    private static final float ZOMBIE_MAX_SPEED = 0.7f;
 
     private Player player;
 
