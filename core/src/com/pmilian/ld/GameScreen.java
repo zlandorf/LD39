@@ -37,8 +37,11 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         world.update();
-
-        camera.position.set(world.getPlayer().x, world.getPlayer().y, 0);
+        camera.position.set(
+            Math.max(camera.viewportWidth / 2, Math.min(512 - camera.viewportWidth / 2, world.getPlayer().x)),
+            Math.max(camera.viewportHeight / 2, Math.min(512 - camera.viewportHeight / 2, world.getPlayer().y)),
+            0
+        );
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
