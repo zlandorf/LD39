@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.pmilian.ld.controller.PlayerController;
 import com.pmilian.ld.entities.Entity;
+import com.pmilian.ld.entities.Jerrycan;
 import com.pmilian.ld.entities.Player;
 import com.pmilian.ld.entities.Zombie;
 
@@ -13,22 +14,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
+    private TextureAtlas atlas;
     private PlayerController controller;
     private Player player;
     private List<Zombie> zombies;
+    private List<Jerrycan> jerrycans;
     private Sprite map;
 
     private List<Rectangle> obstacles;
     private Rectangle safeZone;
 
     public World(TextureAtlas atlas) {
+        this.atlas = atlas;
         this.map = atlas.createSprite("map");
         this.player = new Player(atlas, 220, 300);
         this.controller = new PlayerController(player);
-        this.zombies = new ArrayList<Zombie>();
-        this.zombies.add(new Zombie(player, atlas, 50, 50));
+        initZombies();
+        initJerrycans();
         initObstacles();
         initSafeZone();
+    }
+
+    private void initJerrycans() {
+        this.jerrycans = new ArrayList<Jerrycan>();
+        this.jerrycans.add(new Jerrycan(atlas, 220, 250));
+    }
+
+    private void initZombies() {
+        this.zombies = new ArrayList<Zombie>();
+        this.zombies.add(new Zombie(player, atlas, 50, 50));
     }
 
     private void initSafeZone() {
@@ -52,8 +66,13 @@ public class World {
     public void update() {
         controller.update();
         player.update();
+
         for (Entity zombie : zombies) {
             zombie.update();
+        }
+
+        for (Jerrycan jerrycan : jerrycans) {
+            jerrycan.update();
         }
 
         for (Rectangle obstacle: obstacles) {
@@ -81,6 +100,9 @@ public class World {
 
     public void render(Batch batch) {
         map.draw(batch);
+        for (Jerrycan jerrycan : jerrycans) {
+            jerrycan.render(batch);
+        }
         for (Entity zombie : zombies) {
             zombie.render(batch);
         }
