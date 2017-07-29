@@ -9,4 +9,7 @@ public class Player extends Entity {
         setPosition(x, y);
     }
 
+    public void collideWithZombie(Zombie zombie) {
+
+    }
 }

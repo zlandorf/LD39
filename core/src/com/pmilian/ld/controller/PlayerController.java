@@ -6,7 +6,7 @@ import com.pmilian.ld.entities.Player;
 
 public class PlayerController {
 
-    private static final float MOVE_AMOUNT = 0.8f;
+    private static final float MOVE_AMOUNT = .8f;
 
     private Player player;
 

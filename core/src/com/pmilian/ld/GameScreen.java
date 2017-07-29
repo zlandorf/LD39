@@ -4,16 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.pmilian.ld.controller.PlayerController;
-import com.pmilian.ld.entities.Entity;
-import com.pmilian.ld.entities.Player;
-import com.pmilian.ld.entities.Zombie;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameScreen implements Screen {
 
@@ -23,24 +15,15 @@ public class GameScreen implements Screen {
 
     private TextureAtlas atlas;
 
-    private PlayerController controller;
-
-    private Player player;
-    private List<Entity> zombies;
-
-    private Sprite map;
+    private World world;
 
     public GameScreen(LD39 game) {
         this.game = game;
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(120, 80, camera);
-
         this.atlas = new TextureAtlas("sprites.txt");
-        this.map = atlas.createSprite("map");
-        this.player = new Player(atlas, 220, 300);
-        this.controller = new PlayerController(player);
-        this.zombies = new ArrayList<Entity>();
-        this.zombies.add(new Zombie(player, atlas, 50, 50));
+
+        this.world = new World(atlas);
     }
 
     @Override
@@ -49,13 +32,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        controller.update();
-        player.update();
-        for (Entity zombie : zombies) {
-            zombie.update();
-        }
+        world.update();
 
-        camera.position.set(player.x, player.y, 0);
+        camera.position.set(world.getPlayer().x, world.getPlayer().y, 0);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
@@ -63,11 +42,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-        map.draw(game.batch);
-        for (Entity zombie : zombies) {
-            zombie.render(game.batch);
-        }
-        player.render(game.batch);
+        world.render(game.batch);
         game.batch.end();
     }
 
