@@ -19,6 +19,7 @@ public class World {
     private Sprite map;
 
     private List<Rectangle> obstacles;
+    private Rectangle safeZone;
 
     public World(TextureAtlas atlas) {
         this.map = atlas.createSprite("map");
@@ -27,6 +28,12 @@ public class World {
         this.zombies = new ArrayList<Zombie>();
         this.zombies.add(new Zombie(player, atlas, 50, 50));
         initObstacles();
+        initSafeZone();
+    }
+
+    private void initSafeZone() {
+        safeZone = new Rectangle(176, 251, 97, 96);
+
     }
 
     private void initObstacles() {
@@ -62,6 +69,10 @@ public class World {
         }
 
         for (Zombie zombie: zombies) {
+            if (safeZone.overlaps(zombie.sprite.getBoundingRectangle())) {
+                zombie.collideWithObstacle(safeZone);
+            }
+
             if (player.sprite.getBoundingRectangle().overlaps(zombie.sprite.getBoundingRectangle())) {
                 player.collideWithZombie(zombie);
             }
