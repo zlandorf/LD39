@@ -5,9 +5,16 @@ filter: Nearest,Nearest
 repeat: none
 car
   rotate: false
-  xy: 14, 0
+  xy: 24, 0
   size: 17, 7
   orig: 17, 7
+  offset: 0, 0
+  index: -1
+generator
+  rotate: false
+  xy: 14, 0
+  size: 10, 6
+  orig: 10, 6
   offset: 0, 0
   index: -1
 jerrycan
