@@ -41,4 +41,8 @@ public class Player extends Entity {
             jerrycan = null;
         }
     }
+
+    public boolean isInSafeZone() {
+        return world.safeZone.contains(sprite.getBoundingRectangle());
+    }
 }

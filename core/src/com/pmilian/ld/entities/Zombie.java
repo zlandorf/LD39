@@ -49,10 +49,10 @@ public class Zombie extends Entity {
     }
 
     private void updateState() {
-        if (new Vector2(player.x, player.y).add(-x, -y).len2() < PURSUE_DISTANCE) {
-            state = State.PURSUING;
-        } else {
+        if (player.isInSafeZone()) {
             state = State.ROAMING;
+        } else if (new Vector2(player.x, player.y).add(-x, -y).len2() < PURSUE_DISTANCE) {
+            state = State.PURSUING;
         }
     }
 
@@ -61,7 +61,6 @@ public class Zombie extends Entity {
             return ZOMBIE_MAX_SPEED_PURSUING;
         }
         return ZOMBIE_MAX_SPEED_ROAMING;
-
     }
 
     private Vector2 getTarget() {

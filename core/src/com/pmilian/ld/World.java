@@ -22,13 +22,13 @@ public class World {
     public List<Jerrycan> jerrycans;
     public List<Jerrycan> jerrycansToRemove;
     public Generator generator;
+    public Rectangle safeZone;
 
     private PlayerController controller;
     private Player player;
     private List<Zombie> zombies;
     private Sprite map;
     private List<Rectangle> obstacles;
-    private Rectangle safeZone;
 
     World(TextureAtlas atlas) {
         this.atlas = atlas;
