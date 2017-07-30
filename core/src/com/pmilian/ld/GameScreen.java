@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -73,6 +74,7 @@ public class GameScreen implements Screen {
 
         renderPowerLeft();
         renderHitpoints();
+        renderScore();
     }
 
     private void renderPowerLeft() {
@@ -99,6 +101,21 @@ public class GameScreen implements Screen {
         shapeRenderer.rect(290, viewport.getScreenHeight() - 35, 250 * ratio, 20);
         shapeRenderer.end();
     }
+
+    private void renderScore() {
+        Matrix4 scoreMatrix = camera.combined.cpy();
+        scoreMatrix.setToOrtho2D(0, 0, viewport.getScreenWidth() / 2, viewport.getScreenHeight() / 2);
+        game.batch.setProjectionMatrix(scoreMatrix);
+
+        game.font.setColor(Color.WHITE);
+        game.batch.begin();
+        GlyphLayout glyphLayout = new GlyphLayout();
+        String score = String.valueOf((int)world.player.score);
+        glyphLayout.setText(game.font, score);
+        game.font.draw(game.batch, score, viewport.getScreenWidth() / 2f - glyphLayout.width - 5, viewport.getScreenHeight() / 2f - glyphLayout.height / 2f - 2);
+        game.batch.end();
+    }
+
 
     @Override
     public void resize(int width, int height) {

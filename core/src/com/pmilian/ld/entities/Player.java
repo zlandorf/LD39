@@ -1,6 +1,7 @@
 package com.pmilian.ld.entities;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.pmilian.ld.Scores;
 import com.pmilian.ld.World;
 
 public class Player extends Entity {
@@ -10,6 +11,7 @@ public class Player extends Entity {
 
     private Jerrycan jerrycan;
     public float hitpoints = MAX_HITPOINTS;
+    public float score = 0;
 
     public Player(World world, float x, float y) {
         super(world);
@@ -17,8 +19,15 @@ public class Player extends Entity {
         setPosition(x, y);
     }
 
+    @Override
+    public void update() {
+        super.update();
+        score += Scores.Survival;
+    }
+
     public void collideWithJerrycan(Jerrycan jerrycan) {
         if (this.jerrycan == null || !this.jerrycan.isFull()) {
+            score += Scores.JerrycanPickup;
             this.jerrycan = jerrycan;
             world.jerrycansToRemove.add(jerrycan);
         }
@@ -36,8 +45,9 @@ public class Player extends Entity {
 
     public void collideWithGenerator(Generator generator) {
         if (jerrycan != null && jerrycan.isFull()) {
-            generator.power += 20;
+            generator.power += 25;
             jerrycan.empty();
+            score += Scores.GeneratorFillUp;
         }
     }
 
@@ -54,6 +64,7 @@ public class Player extends Entity {
     public void collideWithCar(Car car) {
         collideWithObstacle(car.sprite.getBoundingRectangle());
         if (jerrycan != null && !jerrycan.isFull() && car.isFull()) {
+            score += Scores.CarSiphon;
             jerrycan.fillUp();
             car.empty();
         }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.pmilian.ld.Scores;
 import com.pmilian.ld.World;
 
 import java.util.Random;
@@ -121,6 +122,7 @@ public class Zombie extends Entity {
         if (!state.equals(State.ELECTRIFIED)) {
             state = State.ELECTRIFIED;
             world.generator.power -= 1;
+            world.player.score += Scores.ZombieDeath;
         }
     }
 

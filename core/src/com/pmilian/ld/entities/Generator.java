@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Generator  {
 
-    private static final float FUEL_CONSUMPTION = .01f;
+    private static final float FUEL_CONSUMPTION = .015f;
 
     public Rectangle boudingBox;
     public float power = 50;
