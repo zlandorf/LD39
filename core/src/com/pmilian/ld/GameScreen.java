@@ -41,6 +41,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         world.update();
+
         camera.position.set(
             Math.max(camera.viewportWidth / 2, Math.min(World.WIDTH - camera.viewportWidth / 2, world.getPlayer().x)),
             Math.max(camera.viewportHeight / 2, Math.min(World.HEIGHT - camera.viewportHeight / 2, world.getPlayer().y)),
@@ -57,6 +58,12 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         renderUi();
+
+        if (world.player.hitpoints <= 0) {
+            game.setScreen(new GameOverScreen(game, "Zombies ate your brain !"));
+        } else if (world.generator.power <= 0) {
+            game.setScreen(new GameOverScreen(game, "The generator ran out of fuel.\nWithout electricity to power\nyour console, you die of boredom."));
+        }
     }
 
     private void renderUi() {
