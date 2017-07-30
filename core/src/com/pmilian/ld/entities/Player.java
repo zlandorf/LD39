@@ -5,7 +5,11 @@ import com.pmilian.ld.World;
 
 public class Player extends Entity {
 
+    public static final float MAX_HITPOINTS = 100;
+    private static final float ZOMBIE_DAMAGE = .3f;
+
     private Jerrycan jerrycan;
+    public float hitpoints = MAX_HITPOINTS;
 
     public Player(World world, float x, float y) {
         super(world);
@@ -35,6 +39,12 @@ public class Player extends Entity {
             generator.power += 20;
             jerrycan.empty();
         }
+    }
+
+    @Override
+    public void collideWithZombie(Zombie other) {
+        super.collideWithZombie(other);
+        hitpoints -= ZOMBIE_DAMAGE;
     }
 
     public boolean isInSafeZone() {

@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import static com.pmilian.ld.entities.Player.MAX_HITPOINTS;
+
 public class GameScreen implements Screen {
 
     private LD39 game;
@@ -54,24 +56,40 @@ public class GameScreen implements Screen {
         world.render(game.batch);
         game.batch.end();
 
+        renderUi();
+    }
+
+    private void renderUi() {
+        Matrix4 uiMatrix = camera.combined.cpy();
+        uiMatrix.setToOrtho2D(0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
+        shapeRenderer.setProjectionMatrix(uiMatrix);
+
         renderPowerLeft();
+        renderHitpoints();
     }
 
     private void renderPowerLeft() {
-        Matrix4 uiMatrix = camera.combined.cpy();
-        uiMatrix.setToOrtho2D(0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
-
-        shapeRenderer.setProjectionMatrix(uiMatrix);
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
         shapeRenderer.rect(10, viewport.getScreenHeight() - 40, 250, 30);
         shapeRenderer.rect(5, viewport.getScreenHeight() - 35, 260, 20);
 
         float maxPower = 100;
-        float ratio = Math.min(1, world.generator.power / maxPower);
+        float ratio = Math.max(0, Math.min(1, world.generator.power / maxPower));
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.rect(10, viewport.getScreenHeight() - 35, 250 * ratio, 20);
+        shapeRenderer.end();
+    }
+
+    private void renderHitpoints() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.rect(290, viewport.getScreenHeight() - 40, 250, 30);
+        shapeRenderer.rect(285, viewport.getScreenHeight() - 35, 260, 20);
+
+        float ratio = Math.max(0, Math.min(1, world.player.hitpoints / MAX_HITPOINTS));
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(290, viewport.getScreenHeight() - 35, 250 * ratio, 20);
         shapeRenderer.end();
     }
 
