@@ -1,10 +1,12 @@
 canvas {
     cursor: default;
     outline: none;
+    display: block;
 }
 
 body {
     background-color: #222222;
+    margin: 0;
 }
 
 .superdev {
