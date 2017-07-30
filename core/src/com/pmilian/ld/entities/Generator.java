@@ -9,10 +9,12 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Generator  {
 
-    private static final float FUEL_CONSUMPTION = .015f;
+    public static final float MAX_POWER = 100;
+
+    private static final float FUEL_CONSUMPTION = .02f;
 
     public Rectangle boudingBox;
-    public float power = 100;
+    public float power = 70;
 
     private float x, y;
     private Animation<TextureRegion> animation;

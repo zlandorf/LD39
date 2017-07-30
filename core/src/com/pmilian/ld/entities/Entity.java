@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.pmilian.ld.World;
 
+import java.util.stream.Stream;
+
 public class Entity {
 
     public Sprite sprite;
@@ -44,6 +46,7 @@ public class Entity {
     }
 
     public void render(Batch batch) {
+        sprite.setPosition(x, y);
         sprite.draw(batch);
     }
 
@@ -71,7 +74,7 @@ public class Entity {
         Rectangle rect = new Rectangle(sprite.getBoundingRectangle());
         rect.setX(x + dir.x);
         rect.setY(y + dir.y);
-        if (world.obstacles.stream().noneMatch(rect::overlaps)) {
+        if (Stream.concat(world.obstacles.stream(), world.cars.stream().map(car -> car.sprite.getBoundingRectangle())).noneMatch(rect::overlaps)) {
             x += dir.x;
             y += dir.y;
         }
@@ -80,7 +83,7 @@ public class Entity {
         rect.setX(other.x - dir.x);
         rect.setY(other.y - dir.y);
 
-        if (world.obstacles.stream().noneMatch(rect::overlaps)) {
+        if (Stream.concat(world.obstacles.stream(), world.cars.stream().map(car -> car.sprite.getBoundingRectangle())).noneMatch(rect::overlaps)) {
             other.x -= dir.x;
             other.y -= dir.y;
         }

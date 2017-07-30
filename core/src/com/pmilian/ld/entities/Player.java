@@ -45,7 +45,8 @@ public class Player extends Entity {
 
     public void collideWithGenerator(Generator generator) {
         if (jerrycan != null && jerrycan.isFull()) {
-            generator.power += 25;
+            generator.power = Math.min(Generator.MAX_POWER, generator.power + 25);
+
             jerrycan.empty();
             score += Scores.GeneratorFillUp;
         }

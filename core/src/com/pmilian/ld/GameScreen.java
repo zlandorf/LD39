@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.pmilian.ld.entities.Generator;
 
 import static com.pmilian.ld.entities.Player.MAX_HITPOINTS;
 
@@ -83,8 +84,7 @@ public class GameScreen implements Screen {
         shapeRenderer.rect(10, viewport.getScreenHeight() - 40, 250, 30);
         shapeRenderer.rect(5, viewport.getScreenHeight() - 35, 260, 20);
 
-        float maxPower = 100;
-        float ratio = Math.max(0, Math.min(1, world.generator.power / maxPower));
+        float ratio = Math.max(0, Math.min(1, world.generator.power / Generator.MAX_POWER));
         shapeRenderer.setColor(Color.GREEN);
         shapeRenderer.rect(10, viewport.getScreenHeight() - 35, 250 * ratio, 20);
         shapeRenderer.end();
