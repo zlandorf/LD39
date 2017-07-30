@@ -6,16 +6,11 @@ import com.pmilian.ld.World;
 public class Player extends Entity {
 
     private Jerrycan jerrycan;
-    private World world;
 
     public Player(World world, float x, float y) {
-        this.world = world;
+        super(world);
         this.sprite = world.atlas.createSprite("player");
         setPosition(x, y);
-    }
-
-    public void collideWithZombie(Zombie zombie) {
-
     }
 
     public void collideWithJerrycan(Jerrycan jerrycan) {

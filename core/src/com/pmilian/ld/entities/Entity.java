@@ -3,6 +3,7 @@ package com.pmilian.ld.entities;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.pmilian.ld.World;
 
 public class Entity {
@@ -12,6 +13,12 @@ public class Entity {
     public float prevX, prevY;
     public float x, y;
     public float dx, dy;
+
+    public World world;
+
+    public Entity(World world) {
+        this.world = world;
+    }
 
     public void setPosition(float x, float y) {
         this.x = x;
@@ -55,6 +62,27 @@ public class Entity {
             }
         }
         sprite.setPosition(x, y);
+    }
+
+    public void collideWithZombie(Zombie other) {
+        Vector2 dir = new Vector2(x, y).add(-other.x, -other.y).nor().scl(.3f);
+
+        Rectangle rect = new Rectangle(sprite.getBoundingRectangle());
+        rect.setX(x + dir.x);
+        rect.setY(y + dir.y);
+        if (world.obstacles.stream().noneMatch(rect::overlaps)) {
+            x += dir.x;
+            y += dir.y;
+        }
+
+        rect = new Rectangle(other.sprite.getBoundingRectangle());
+        rect.setX(other.x - dir.x);
+        rect.setY(other.y - dir.y);
+
+        if (world.obstacles.stream().noneMatch(rect::overlaps)) {
+            other.x -= dir.x;
+            other.y -= dir.y;
+        }
     }
 
 }

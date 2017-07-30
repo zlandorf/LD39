@@ -23,12 +23,12 @@ public class World {
     public List<Jerrycan> jerrycansToRemove;
     public Generator generator;
     public Rectangle safeZone;
+    public Player player;
+    public List<Rectangle> obstacles;
+    public List<Zombie> zombies;
 
     private PlayerController controller;
-    private Player player;
-    private List<Zombie> zombies;
     private Sprite map;
-    private List<Rectangle> obstacles;
 
     World(TextureAtlas atlas) {
         this.atlas = atlas;
@@ -49,12 +49,30 @@ public class World {
     private void initJerrycans() {
         this.jerrycansToRemove = new ArrayList<>();
         this.jerrycans = new ArrayList<>();
-        this.jerrycans.add(new Jerrycan(atlas, 220, 250));
+        this.jerrycans.add(new Jerrycan(this, atlas, 220, 250));
     }
 
     private void initZombies() {
         this.zombies = new ArrayList<>();
-        this.zombies.add(new Zombie(player, atlas, 50, 50));
+        this.zombies.add(new Zombie(this, atlas, 100, 100));
+        this.zombies.add(new Zombie(this, atlas, 200, 50));
+        this.zombies.add(new Zombie(this, atlas, 400, 70));
+        this.zombies.add(new Zombie(this, atlas, 100, 360));
+        this.zombies.add(new Zombie(this, atlas, 130, 470));
+        this.zombies.add(new Zombie(this, atlas, 400, 400));
+        this.zombies.add(new Zombie(this, atlas, 445, 470));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        this.zombies.add(new Zombie(this, atlas, 300, 300));
+
+
     }
 
     private void initSafeZone() {
@@ -92,6 +110,7 @@ public class World {
 
     void computeCollisions() {
         collideWithObstacles();
+        collideZombies();
         collideWithZombies();
         collideWithJerryCans();
         collideWithGenerator();
@@ -125,16 +144,23 @@ public class World {
         }
     }
 
-    void collideWithZombies() {
-        for (Zombie zombie: zombies) {
-            if (safeZone.overlaps(zombie.sprite.getBoundingRectangle())) {
-                zombie.collideWithObstacle(safeZone);
-            }
+    void collideZombies() {
+        zombies.forEach(
+            zombie -> zombies
+                .stream()
+                .filter(z -> !z.equals(zombie))
+                .filter(other -> zombie.sprite.getBoundingRectangle().overlaps(other.sprite.getBoundingRectangle()))
+                .forEach(other -> zombie.collideWithZombie(other)));
+    }
 
-            if (player.sprite.getBoundingRectangle().overlaps(zombie.sprite.getBoundingRectangle())) {
-                player.collideWithZombie(zombie);
-            }
-        }
+    void collideWithZombies() {
+        zombies.stream()
+            .filter(zombie -> safeZone.overlaps(zombie.sprite.getBoundingRectangle()))
+            .forEach(zombie -> zombie.collideWithObstacle(safeZone));
+
+        zombies.stream()
+            .filter(zombie -> player.sprite.getBoundingRectangle().overlaps(zombie.sprite.getBoundingRectangle()))
+            .forEach(zombie -> player.collideWithZombie(zombie));
     }
 
     void render(Batch batch) {
