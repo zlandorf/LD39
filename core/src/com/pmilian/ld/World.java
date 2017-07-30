@@ -40,9 +40,9 @@ public class World {
         this.zombieSpawner = new ZombieSpawner(this);
         this.atlas = atlas;
         this.map = atlas.createSprite("map");
-        this.player = new Player(this, 220, 300);
+        this.player = new Player(this, 236, 287);
         this.controller = new PlayerController(player);
-        this.tv = new Tv(atlas, 229, 322);
+        this.tv = new Tv(atlas, 229, 292);
         initSafeZone();
         initJerrycans();
         initGenerator();
@@ -66,7 +66,7 @@ public class World {
     }
 
     private void initGenerator() {
-        generator = new Generator(atlas, 219, 325, 10, 6);
+        generator = new Generator(atlas, 219, 295, 10, 6);
     }
 
     private void initJerrycans() {
@@ -98,7 +98,8 @@ public class World {
     private void initObstacles() {
         obstacles = new ArrayList<>();
         obstacles.add(new Rectangle(171, 250, 5, 98));
-        obstacles.add(new Rectangle(175, 347, 100, 5));
+        obstacles.add(new Rectangle(175, 347, 42, 5));
+        obstacles.add(new Rectangle(230, 347, 44, 5));
         obstacles.add(new Rectangle(273, 250, 5, 98));
         obstacles.add(new Rectangle(175, 246, 42, 5));
         obstacles.add(new Rectangle(230, 246, 44, 5));

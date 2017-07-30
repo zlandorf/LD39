@@ -23,7 +23,7 @@ public class Zombie extends Entity {
 
     private static final float ZOMBIE_MAX_SPEED_ROAMING = 0.2f;
     private static final float PURSUE_DISTANCE = 3000;
-    private static final float LOCK_OFF_DISTANCE = 5000;
+    private static final float LOCK_OFF_DISTANCE = 4500;
 
     private static final float RANDOM_DELAY = 10;
     private static final Random random = new Random();

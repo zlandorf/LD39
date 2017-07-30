@@ -12,7 +12,7 @@ public class Generator  {
     private static final float FUEL_CONSUMPTION = .015f;
 
     public Rectangle boudingBox;
-    public float power = 50;
+    public float power = 100;
 
     private float x, y;
     private Animation<TextureRegion> animation;
