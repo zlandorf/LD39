@@ -27,12 +27,14 @@ public class World {
 
     private PlayerController controller;
     private Sprite map;
+    private Tv tv;
 
     World(TextureAtlas atlas) {
         this.atlas = atlas;
         this.map = atlas.createSprite("map");
         this.player = new Player(this, 220, 300);
         this.controller = new PlayerController(player);
+        this.tv = new Tv(atlas, 229, 322);
         initZombies();
         initJerrycans();
         initSafeZone();
@@ -54,6 +56,7 @@ public class World {
         jerrycansToRemove = new ArrayList<>();
         jerrycans = new ArrayList<>();
         jerrycans.add(new Jerrycan(this, atlas, 220, 270));
+        jerrycans.add(new Jerrycan(this, atlas, 220, 300));
     }
 
     private void initZombies() {
@@ -175,6 +178,7 @@ public class World {
 
     void render(Batch batch) {
         map.draw(batch);
+        tv.render(batch);
         generator.render(batch);
         cars.forEach(car -> car.render(batch));
         jerrycans.forEach(jerrycan -> jerrycan.render(batch));

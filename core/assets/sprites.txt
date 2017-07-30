@@ -5,28 +5,28 @@ filter: Nearest,Nearest
 repeat: none
 car
   rotate: false
-  xy: 84, 0
+  xy: 116, 0
   size: 17, 7
   orig: 17, 7
   offset: 0, 0
   index: 0
 car
   rotate: false
-  xy: 67, 0
+  xy: 99, 0
   size: 17, 7
   orig: 17, 7
   offset: 0, 0
   index: 1
 generator
   rotate: false
-  xy: 47, 0
+  xy: 27, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 0
 generator
   rotate: false
-  xy: 37, 0
+  xy: 47, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
@@ -40,28 +40,28 @@ generator
   index: 2
 generator
   rotate: false
-  xy: 17, 0
+  xy: 37, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 3
 generator
   rotate: false
-  xy: 27, 0
+  xy: 17, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 4
 jerrycan
   rotate: false
-  xy: 3, 0
+  xy: 0, 0
   size: 3, 4
   orig: 3, 4
   offset: 0, 0
   index: 0
 jerrycan
   rotate: false
-  xy: 0, 0
+  xy: 3, 0
   size: 3, 4
   orig: 3, 4
   offset: 0, 0
@@ -80,6 +80,20 @@ player
   orig: 6, 9
   offset: 0, 0
   index: -1
+tv
+  rotate: false
+  xy: 83, 0
+  size: 16, 12
+  orig: 16, 12
+  offset: 0, 0
+  index: 0
+tv
+  rotate: false
+  xy: 67, 0
+  size: 16, 12
+  orig: 16, 12
+  offset: 0, 0
+  index: 1
 zombie
   rotate: false
   xy: 6, 0

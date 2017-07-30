@@ -14,7 +14,7 @@ public class Player extends Entity {
     }
 
     public void collideWithJerrycan(Jerrycan jerrycan) {
-        if (this.jerrycan == null) {
+        if (this.jerrycan == null || !this.jerrycan.isFull()) {
             this.jerrycan = jerrycan;
             world.jerrycansToRemove.add(jerrycan);
         }
