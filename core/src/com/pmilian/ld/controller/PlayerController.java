@@ -2,11 +2,12 @@ package com.pmilian.ld.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.pmilian.ld.entities.Player;
 
 public class PlayerController {
 
-    private static final float MOVE_AMOUNT = .8f;
+    private static final float MOVE_AMOUNT = 1.1f;
 
     private Player player;
 
@@ -15,21 +16,26 @@ public class PlayerController {
     }
 
     public void update() {
-        player.dx = 0;
-        player.dy = 0;
+
+        Vector2 movement = Vector2.Zero.cpy();
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.dy += MOVE_AMOUNT;
+            movement.y += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.dy += -MOVE_AMOUNT;
+            movement.y -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.dx += MOVE_AMOUNT;
+            movement.x += 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.dx += -MOVE_AMOUNT;
+            movement.x -= 1;
         }
+
+        movement = movement.nor().scl(MOVE_AMOUNT);
+
+        player.dx = movement.x;
+        player.dy = movement.y;
     }
 
 }

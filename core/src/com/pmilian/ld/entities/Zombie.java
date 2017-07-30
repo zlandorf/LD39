@@ -1,6 +1,7 @@
 package com.pmilian.ld.entities;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 
 public class Zombie extends Entity {
 
@@ -21,12 +22,11 @@ public class Zombie extends Entity {
         dx = 0;
         dy = 0;
 
-        if (Math.abs(player.x - this.x) > MOVE_DISTANCE) {
-            dx = Math.max(-ZOMBIE_MAX_SPEED, Math.min(ZOMBIE_MAX_SPEED, player.x - this.x));
-        }
-        if (Math.abs(player.y - this.y) > MOVE_DISTANCE) {
-            dy = Math.max(-ZOMBIE_MAX_SPEED, Math.min(ZOMBIE_MAX_SPEED, player.y - this.y));
-        }
+        Vector2 toPlayer = new Vector2(player.x, player.y).add(-x, -y);
+        toPlayer = toPlayer.nor().scl(ZOMBIE_MAX_SPEED);
+
+        dx = toPlayer.x;
+        dy = toPlayer.y;
 
         super.update();
     }
