@@ -14,12 +14,12 @@ public class GameOverScreen implements Screen {
     private OrthographicCamera camera;
     private ExtendViewport viewport;
 
-    private String deathCause;
+    private String text;
 
-    public GameOverScreen(LD39 game, String deathCause) {
+    public GameOverScreen(LD39 game, String deathCause, float score) {
         this.game = game;
         this.camera = new OrthographicCamera();
-        this.deathCause = deathCause + "\nClick to try again";
+        this.text = String.format("Score: %s\n\n%s\n\nClick to try again", (int)score, deathCause) ;
         this.viewport = new ExtendViewport(250, 160, camera);
     }
 
@@ -39,8 +39,8 @@ public class GameOverScreen implements Screen {
 
         game.batch.begin();
         GlyphLayout glyphLayout = new GlyphLayout();
-        glyphLayout.setText(game.font, deathCause);
-        game.font.draw(game.batch, deathCause, camera.viewportWidth / 2f - glyphLayout.width / 2f, camera.viewportHeight / 2f + glyphLayout.height / 2f);
+        glyphLayout.setText(game.font, text);
+        game.font.draw(game.batch, text, camera.viewportWidth / 2f - glyphLayout.width / 2f, camera.viewportHeight / 2f + glyphLayout.height / 2f);
         game.batch.end();
 
         if (Gdx.input.justTouched()) {

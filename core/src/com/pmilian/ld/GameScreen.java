@@ -62,9 +62,9 @@ public class GameScreen implements Screen {
         renderUi();
 
         if (world.player.hitpoints <= 0) {
-            game.setScreen(new GameOverScreen(game, "Zombies ate your brain !"));
+            game.setScreen(new GameOverScreen(game, "Zombies ate your brain !", world.player.score));
         } else if (world.generator.power <= 0) {
-            game.setScreen(new GameOverScreen(game, "The generator ran out of fuel.\nWithout electricity to power\nyour console, you die of boredom."));
+            game.setScreen(new GameOverScreen(game, "The generator ran out of fuel.\nWithout electricity to power\nyour console, you die of boredom.", world.player.score));
         }
     }
 

@@ -25,6 +25,8 @@ public class Zombie extends Entity {
     private static final float PURSUE_DISTANCE = 3000;
     private static final float LOCK_OFF_DISTANCE = 4500;
 
+    private static final float ZOMBIE_ELETROCUTION_POWER = 3;
+
     private static final float RANDOM_DELAY = 10;
     private static final Random random = new Random();
 
@@ -121,7 +123,7 @@ public class Zombie extends Entity {
         dx = dy = 0;
         if (!state.equals(State.ELECTRIFIED)) {
             state = State.ELECTRIFIED;
-            world.generator.power -= 1;
+            world.generator.power -= ZOMBIE_ELETROCUTION_POWER;
             world.player.score += Scores.ZombieDeath;
         }
     }
