@@ -5,49 +5,49 @@ filter: Nearest,Nearest
 repeat: none
 car
   rotate: false
-  xy: 116, 0
+  xy: 131, 0
   size: 17, 7
   orig: 17, 7
   offset: 0, 0
   index: 0
 car
   rotate: false
-  xy: 99, 0
+  xy: 114, 0
   size: 17, 7
   orig: 17, 7
   offset: 0, 0
   index: 1
 generator
   rotate: false
-  xy: 27, 0
+  xy: 42, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 0
 generator
   rotate: false
-  xy: 47, 0
+  xy: 32, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 1
 generator
   rotate: false
-  xy: 57, 0
+  xy: 72, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 2
 generator
   rotate: false
-  xy: 37, 0
+  xy: 52, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 3
 generator
   rotate: false
-  xy: 17, 0
+  xy: 62, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
@@ -75,28 +75,49 @@ map
   index: -1
 player
   rotate: false
-  xy: 11, 0
+  xy: 26, 0
   size: 6, 9
   orig: 6, 9
   offset: 0, 0
   index: -1
 tv
   rotate: false
-  xy: 83, 0
+  xy: 82, 0
   size: 16, 12
   orig: 16, 12
   offset: 0, 0
   index: 0
 tv
   rotate: false
-  xy: 67, 0
+  xy: 98, 0
   size: 16, 12
   orig: 16, 12
   offset: 0, 0
   index: 1
-zombie
+zombie-electrified
+  rotate: false
+  xy: 11, 0
+  size: 5, 8
+  orig: 5, 8
+  offset: 0, 0
+  index: 0
+zombie-electrified
+  rotate: false
+  xy: 16, 0
+  size: 5, 8
+  orig: 5, 8
+  offset: 0, 0
+  index: 1
+zombie-electrified
   rotate: false
   xy: 6, 0
+  size: 5, 8
+  orig: 5, 8
+  offset: 0, 0
+  index: 2
+zombie
+  rotate: false
+  xy: 21, 0
   size: 5, 8
   orig: 5, 8
   offset: 0, 0

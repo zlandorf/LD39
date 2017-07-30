@@ -25,6 +25,7 @@ public class World {
     public Player player;
     public List<Rectangle> obstacles;
     public List<Zombie> zombies;
+    public List<Zombie> zombiesToRemove;
     public List<Car> cars;
 
     private PlayerController controller;
@@ -83,6 +84,7 @@ public class World {
 
     private void initZombies() {
         zombies = new ArrayList<>();
+        zombiesToRemove = new ArrayList<>();
         IntStream.range(0, 40).forEach(value -> {
             while (true) {
                 Zombie zombie = new Zombie(this, atlas, random.nextInt(WIDTH), random.nextInt(HEIGHT));
@@ -129,6 +131,8 @@ public class World {
     private void removeEntities() {
         jerrycans.removeAll(jerrycansToRemove);
         jerrycansToRemove.clear();
+        zombies.removeAll(zombiesToRemove);
+        zombiesToRemove.clear();
     }
 
     void computeCollisions() {
@@ -184,7 +188,7 @@ public class World {
     void collideWithZombies() {
         zombies.stream()
             .filter(zombie -> safeZone.overlaps(zombie.sprite.getBoundingRectangle()))
-            .forEach(zombie -> zombie.collideWithObstacle(safeZone));
+            .forEach(Zombie::collideWithSafeZone);
 
         zombies.stream()
             .filter(zombie -> player.sprite.getBoundingRectangle().overlaps(zombie.sprite.getBoundingRectangle()))
