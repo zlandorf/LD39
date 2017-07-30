@@ -9,6 +9,8 @@ import com.pmilian.ld.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class World {
 
@@ -29,15 +31,17 @@ public class World {
     private Sprite map;
     private Tv tv;
 
+    private Random random = new Random();
+
     World(TextureAtlas atlas) {
         this.atlas = atlas;
         this.map = atlas.createSprite("map");
         this.player = new Player(this, 220, 300);
         this.controller = new PlayerController(player);
         this.tv = new Tv(atlas, 229, 322);
+        initSafeZone();
         initZombies();
         initJerrycans();
-        initSafeZone();
         initGenerator();
         initCars();
         initObstacles();
@@ -45,7 +49,16 @@ public class World {
 
     private void initCars() {
         cars = new ArrayList<>();
-        cars.add(new Car(this, atlas, 400, 200));
+        Rectangle rectangle = new Rectangle(100, 100, 330, 320);
+        IntStream.range(0, 4).forEach(value -> {
+            while (true) {
+                Car car = new Car(this, atlas, random.nextInt(WIDTH), random.nextInt(HEIGHT));
+                if (!rectangle.overlaps(car.sprite.getBoundingRectangle())) {
+                    cars.add(car);
+                    break;
+                }
+            }
+        });
     }
 
     private void initGenerator() {
@@ -56,28 +69,30 @@ public class World {
         jerrycansToRemove = new ArrayList<>();
         jerrycans = new ArrayList<>();
         jerrycans.add(new Jerrycan(this, atlas, 220, 270));
-        jerrycans.add(new Jerrycan(this, atlas, 220, 300));
+
+        IntStream.range(0, 12).forEach(value -> {
+            while (true) {
+                Jerrycan jerrycan = new Jerrycan(this, atlas, random.nextInt(WIDTH), random.nextInt(HEIGHT));
+                if (!safeZone.overlaps(jerrycan.sprite.getBoundingRectangle())) {
+                    jerrycans.add(jerrycan);
+                    break;
+                }
+            }
+        });
     }
 
     private void initZombies() {
         zombies = new ArrayList<>();
-        zombies.add(new Zombie(this, atlas, 100, 100));
-        zombies.add(new Zombie(this, atlas, 200, 50));
-        zombies.add(new Zombie(this, atlas, 400, 70));
-        zombies.add(new Zombie(this, atlas, 100, 360));
-        zombies.add(new Zombie(this, atlas, 130, 470));
-        zombies.add(new Zombie(this, atlas, 400, 400));
-        zombies.add(new Zombie(this, atlas, 445, 470));
-        zombies.add(new Zombie(this, atlas, 300, 300));
+        IntStream.range(0, 40).forEach(value -> {
+            while (true) {
+                Zombie zombie = new Zombie(this, atlas, random.nextInt(WIDTH), random.nextInt(HEIGHT));
+                if (!safeZone.overlaps(zombie.sprite.getBoundingRectangle())) {
+                    zombies.add(zombie);
+                    break;
+                }
+            }
+        });
 
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
-        zombies.add(new Zombie(this, atlas, 300, 300));
     }
 
     private void initSafeZone() {
