@@ -42,6 +42,7 @@ public class Player extends Entity {
     }
 
     public void collideWithCar(Car car) {
+        collideWithObstacle(car.sprite.getBoundingRectangle());
         if (jerrycan != null && !jerrycan.isFull() && car.isFull()) {
             jerrycan.fillUp();
             car.empty();

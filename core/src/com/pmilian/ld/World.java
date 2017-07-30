@@ -32,20 +32,23 @@ public class World {
     private Sprite map;
     private Tv tv;
 
+    private ZombieSpawner zombieSpawner;
+
     private Random random = new Random();
 
     World(TextureAtlas atlas) {
+        this.zombieSpawner = new ZombieSpawner(this);
         this.atlas = atlas;
         this.map = atlas.createSprite("map");
         this.player = new Player(this, 220, 300);
         this.controller = new PlayerController(player);
         this.tv = new Tv(atlas, 229, 322);
         initSafeZone();
-        initZombies();
         initJerrycans();
         initGenerator();
         initCars();
         initObstacles();
+        initZombies();
     }
 
     private void initCars() {
@@ -85,16 +88,7 @@ public class World {
     private void initZombies() {
         zombies = new ArrayList<>();
         zombiesToRemove = new ArrayList<>();
-        IntStream.range(0, 40).forEach(value -> {
-            while (true) {
-                Zombie zombie = new Zombie(this, atlas, random.nextInt(WIDTH), random.nextInt(HEIGHT));
-                if (!safeZone.overlaps(zombie.sprite.getBoundingRectangle())) {
-                    zombies.add(zombie);
-                    break;
-                }
-            }
-        });
-
+        zombieSpawner.initZombies(40);
     }
 
     private void initSafeZone() {
@@ -108,8 +102,6 @@ public class World {
         obstacles.add(new Rectangle(273, 250, 5, 98));
         obstacles.add(new Rectangle(175, 246, 42, 5));
         obstacles.add(new Rectangle(230, 246, 44, 5));
-
-        cars.forEach(car -> obstacles.add(new Rectangle(car.sprite.getBoundingRectangle())));
     }
 
     Player getPlayer() {
@@ -131,7 +123,9 @@ public class World {
     private void removeEntities() {
         jerrycans.removeAll(jerrycansToRemove);
         jerrycansToRemove.clear();
+
         zombies.removeAll(zombiesToRemove);
+        IntStream.range(0, zombiesToRemove.size()).forEach(value -> zombieSpawner.spawnZombie());
         zombiesToRemove.clear();
     }
 
@@ -148,6 +142,12 @@ public class World {
         cars.stream()
             .filter(car -> car.sprite.getBoundingRectangle().overlaps(player.sprite.getBoundingRectangle()))
             .forEach(car -> player.collideWithCar(car));
+
+        cars.forEach(car ->
+            zombies.stream()
+                .filter(zombie -> zombie.sprite.getBoundingRectangle().overlaps(car.sprite.getBoundingRectangle()))
+                .forEach(zombie -> zombie.collideWithCar(car))
+        );
     }
 
     private void collideWithGenerator() {

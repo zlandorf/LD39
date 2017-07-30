@@ -124,6 +124,10 @@ public class Zombie extends Entity {
         }
     }
 
+    public void collideWithCar(Car car) {
+        super.collideWithObstacle(car.sprite.getBoundingRectangle());
+    }
+
     @Override
     public void collideWithObstacle(Rectangle obstacle) {
         collideWithSafeZone();
