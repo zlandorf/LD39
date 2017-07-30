@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
+
+    public static final int WIDTH = 512;
+    public static final int HEIGHT = 512;
+
     public TextureAtlas atlas;
     public List<Jerrycan> jerrycans;
     public List<Jerrycan> jerrycansToRemove;

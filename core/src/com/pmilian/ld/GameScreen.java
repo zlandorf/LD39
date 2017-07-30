@@ -39,8 +39,8 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         world.update();
         camera.position.set(
-            Math.max(camera.viewportWidth / 2, Math.min(512 - camera.viewportWidth / 2, world.getPlayer().x)),
-            Math.max(camera.viewportHeight / 2, Math.min(512 - camera.viewportHeight / 2, world.getPlayer().y)),
+            Math.max(camera.viewportWidth / 2, Math.min(World.WIDTH - camera.viewportWidth / 2, world.getPlayer().x)),
+            Math.max(camera.viewportHeight / 2, Math.min(World.HEIGHT - camera.viewportHeight / 2, world.getPlayer().y)),
             0
         );
         camera.update();
