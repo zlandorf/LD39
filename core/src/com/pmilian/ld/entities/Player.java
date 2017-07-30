@@ -1,5 +1,6 @@
 package com.pmilian.ld.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.pmilian.ld.Scores;
 import com.pmilian.ld.World;
@@ -22,7 +23,7 @@ public class Player extends Entity {
     @Override
     public void update() {
         super.update();
-        score += Scores.Survival;
+        score += Scores.Survival * Gdx.graphics.getDeltaTime();
     }
 
     public void collideWithJerrycan(Jerrycan jerrycan) {

@@ -81,24 +81,24 @@ public class GameScreen implements Screen {
     private void renderPowerLeft() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(10, viewport.getScreenHeight() - 40, 250, 30);
-        shapeRenderer.rect(5, viewport.getScreenHeight() - 35, 260, 20);
+        shapeRenderer.rect(10, viewport.getScreenHeight() - 40, 200, 24);
+        shapeRenderer.rect(5, viewport.getScreenHeight() - 36, 210, 16);
 
         float ratio = Math.max(0, Math.min(1, world.generator.power / Generator.MAX_POWER));
         shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.rect(10, viewport.getScreenHeight() - 35, 250 * ratio, 20);
+        shapeRenderer.rect(10, viewport.getScreenHeight() - 36, 200 * ratio, 16);
         shapeRenderer.end();
     }
 
     private void renderHitpoints() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(290, viewport.getScreenHeight() - 40, 250, 30);
-        shapeRenderer.rect(285, viewport.getScreenHeight() - 35, 260, 20);
+        shapeRenderer.rect(230, viewport.getScreenHeight() - 40, 200, 24);
+        shapeRenderer.rect(225, viewport.getScreenHeight() - 36, 210, 16);
 
         float ratio = Math.max(0, Math.min(1, world.player.hitpoints / MAX_HITPOINTS));
         shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(290, viewport.getScreenHeight() - 35, 250 * ratio, 20);
+        shapeRenderer.rect(230, viewport.getScreenHeight() - 36, 200 * ratio, 16);
         shapeRenderer.end();
     }
 

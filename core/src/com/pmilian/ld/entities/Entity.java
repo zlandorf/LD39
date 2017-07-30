@@ -1,5 +1,6 @@
 package com.pmilian.ld.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
@@ -37,8 +38,8 @@ public class Entity {
         } else if (dx < 0){
             sprite.setFlip(true, false);
         }
-        x += dx;
-        y += dy;
+        x += dx * Gdx.graphics.getDeltaTime() * 60;
+        y += dy * Gdx.graphics.getDeltaTime() * 60;
 
         x = Math.max(0, Math.min(World.WIDTH - sprite.getWidth(), x));
         y = Math.max(0, Math.min(World.HEIGHT - sprite.getHeight(), y));

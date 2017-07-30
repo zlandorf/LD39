@@ -11,7 +11,7 @@ public class Generator  {
 
     public static final float MAX_POWER = 100;
 
-    private static final float FUEL_CONSUMPTION = .02f;
+    private static final float FUEL_CONSUMPTION = 1.5f;
 
     public Rectangle boudingBox;
     public float power = 70;
@@ -28,7 +28,7 @@ public class Generator  {
     }
 
     public void update() {
-        power -= FUEL_CONSUMPTION;
+        power -= FUEL_CONSUMPTION * Gdx.graphics.getDeltaTime();
         power = Math.max(0, power);
     }
 

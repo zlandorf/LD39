@@ -88,7 +88,7 @@ public class World {
     private void initZombies() {
         zombies = new ArrayList<>();
         zombiesToRemove = new ArrayList<>();
-        zombieSpawner.initZombies(40);
+        zombieSpawner.initZombies(30);
     }
 
     private void initSafeZone() {

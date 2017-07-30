@@ -5,5 +5,5 @@ public interface Scores {
     int JerrycanPickup = 100;
     int CarSiphon = 300;
     int GeneratorFillUp = 300;
-    float Survival = 0.1f;
+    float Survival = 6f;
 }

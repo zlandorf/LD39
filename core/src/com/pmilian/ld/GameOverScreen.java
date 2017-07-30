@@ -19,7 +19,7 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(LD39 game, String deathCause, float score) {
         this.game = game;
         this.camera = new OrthographicCamera();
-        this.text = String.format("Score: %s\n\n%s\n\nClick to try again", (int)score, deathCause) ;
+        this.text = "Score: " + (int) score + "\n\n" + deathCause + "\n\nClick to try again";
         this.viewport = new ExtendViewport(250, 160, camera);
     }
 
