@@ -31,13 +31,20 @@ public class Player extends Entity {
     }
 
     public void collideWithGenerator(Generator generator) {
-        if (jerrycan != null) {
+        if (jerrycan != null && jerrycan.isFull()) {
             generator.power += 20;
-            jerrycan = null;
+            jerrycan.empty();
         }
     }
 
     public boolean isInSafeZone() {
         return world.safeZone.contains(sprite.getBoundingRectangle());
+    }
+
+    public void collideWithCar(Car car) {
+        if (jerrycan != null && !jerrycan.isFull() && car.isFull()) {
+            jerrycan.fillUp();
+            car.empty();
+        }
     }
 }

@@ -5,53 +5,67 @@ filter: Nearest,Nearest
 repeat: none
 car
   rotate: false
-  xy: 64, 0
+  xy: 84, 0
   size: 17, 7
   orig: 17, 7
   offset: 0, 0
-  index: -1
+  index: 0
+car
+  rotate: false
+  xy: 67, 0
+  size: 17, 7
+  orig: 17, 7
+  offset: 0, 0
+  index: 1
 generator
   rotate: false
-  xy: 54, 0
+  xy: 47, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 0
 generator
   rotate: false
-  xy: 44, 0
+  xy: 37, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 1
 generator
   rotate: false
-  xy: 34, 0
+  xy: 57, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 2
 generator
   rotate: false
-  xy: 14, 0
+  xy: 17, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 3
 generator
   rotate: false
-  xy: 24, 0
+  xy: 27, 0
   size: 10, 17
   orig: 10, 17
   offset: 0, 0
   index: 4
 jerrycan
   rotate: false
+  xy: 3, 0
+  size: 3, 4
+  orig: 3, 4
+  offset: 0, 0
+  index: 0
+jerrycan
+  rotate: false
   xy: 0, 0
   size: 3, 4
   orig: 3, 4
   offset: 0, 0
-  index: -1
+  index: 1
 map
   rotate: false
   xy: 0, 17
@@ -61,14 +75,14 @@ map
   index: -1
 player
   rotate: false
-  xy: 8, 0
+  xy: 11, 0
   size: 6, 9
   orig: 6, 9
   offset: 0, 0
   index: -1
 zombie
   rotate: false
-  xy: 3, 0
+  xy: 6, 0
   size: 5, 8
   orig: 5, 8
   offset: 0, 0

@@ -53,7 +53,7 @@ public class World {
     private void initJerrycans() {
         jerrycansToRemove = new ArrayList<>();
         jerrycans = new ArrayList<>();
-        jerrycans.add(new Jerrycan(this, atlas, 220, 250));
+        jerrycans.add(new Jerrycan(this, atlas, 220, 270));
     }
 
     private void initZombies() {
@@ -75,8 +75,6 @@ public class World {
         zombies.add(new Zombie(this, atlas, 300, 300));
         zombies.add(new Zombie(this, atlas, 300, 300));
         zombies.add(new Zombie(this, atlas, 300, 300));
-
-
     }
 
     private void initSafeZone() {
@@ -116,11 +114,18 @@ public class World {
     }
 
     void computeCollisions() {
-        collideWithObstacles();
         collideZombies();
         collideWithZombies();
         collideWithJerryCans();
+        collideWithCars();
         collideWithGenerator();
+        collideWithObstacles();
+    }
+
+    private void collideWithCars() {
+        cars.stream()
+            .filter(car -> car.sprite.getBoundingRectangle().overlaps(player.sprite.getBoundingRectangle()))
+            .forEach(car -> player.collideWithCar(car));
     }
 
     private void collideWithGenerator() {
@@ -138,17 +143,15 @@ public class World {
     }
 
     void collideWithObstacles() {
-        for (Rectangle obstacle: obstacles) {
-            if (player.sprite.getBoundingRectangle().overlaps(obstacle)) {
-                player.collideWithObstacle(obstacle);
-            }
+        obstacles.stream()
+            .filter(obstacle -> player.sprite.getBoundingRectangle().overlaps(obstacle))
+            .forEach(obstacle -> player.collideWithObstacle(obstacle));
 
-            for (Zombie zombie: zombies) {
-                if (zombie.sprite.getBoundingRectangle().overlaps(obstacle)) {
-                    zombie.collideWithObstacle(obstacle);
-                }
-            }
-        }
+        obstacles.forEach(obstacle ->
+            zombies.stream()
+                .filter(zombie -> zombie.sprite.getBoundingRectangle().overlaps(obstacle))
+                .forEach(zombie -> zombie.collideWithObstacle(obstacle))
+        );
     }
 
     void collideZombies() {
