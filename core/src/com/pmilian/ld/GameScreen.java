@@ -25,7 +25,8 @@ public class GameScreen implements Screen {
     public GameScreen(LD39 game) {
         this.game = game;
         this.camera = new OrthographicCamera();
-        this.viewport = new ExtendViewport(250, 160, camera);
+//        this.viewport = new ExtendViewport(250, 160, camera);
+        this.viewport = new ExtendViewport(512, 512, camera);
         this.atlas = new TextureAtlas("sprites.txt");
         this.world = new World(atlas);
         this.shapeRenderer = new ShapeRenderer();

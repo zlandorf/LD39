@@ -12,13 +12,14 @@ public class Zombie extends Entity {
 
     private enum State {
         PURSUING,
-        ROAMING
+        ROAMING,
+        ELECTROCUTED
     }
-    private static final float ZOMBIE_MAX_SPEED_PURSUING = 0.7f;
+    private static final float ZOMBIE_MAX_SPEED_PURSUING = 0.8f;
 
     private static final float ZOMBIE_MAX_SPEED_ROAMING = 0.2f;
     private static final float PURSUE_DISTANCE = 3000;
-
+    private static final float LOCK_OFF_DISTANCE = 5000;
 
     private static final float RANDOM_DELAY = 10;
     private static final Random random = new Random();
@@ -72,9 +73,10 @@ public class Zombie extends Entity {
     }
 
     private void updateState() {
-        if (world.player.isInSafeZone()) {
+        float playerDistance = new Vector2(world.player.x, world.player.y).add(-x, -y).len2();
+        if (world.player.isInSafeZone() || playerDistance > LOCK_OFF_DISTANCE) {
             state = State.ROAMING;
-        } else if (new Vector2(world.player.x, world.player.y).add(-x, -y).len2() < PURSUE_DISTANCE) {
+        } else if (playerDistance < PURSUE_DISTANCE) {
             state = State.PURSUING;
         }
     }
@@ -99,4 +101,5 @@ public class Zombie extends Entity {
         nextRandom -= Gdx.graphics.getDeltaTime();
         return randomTarget;
     }
+
 }
