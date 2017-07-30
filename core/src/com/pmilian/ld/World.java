@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.pmilian.ld.controller.PlayerController;
-import com.pmilian.ld.entities.Generator;
-import com.pmilian.ld.entities.Jerrycan;
-import com.pmilian.ld.entities.Player;
-import com.pmilian.ld.entities.Zombie;
+import com.pmilian.ld.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +23,7 @@ public class World {
     public Player player;
     public List<Rectangle> obstacles;
     public List<Zombie> zombies;
+    public List<Car> cars;
 
     private PlayerController controller;
     private Sprite map;
@@ -37,9 +35,15 @@ public class World {
         this.controller = new PlayerController(player);
         initZombies();
         initJerrycans();
-        initObstacles();
         initSafeZone();
         initGenerator();
+        initCars();
+        initObstacles();
+    }
+
+    private void initCars() {
+        cars = new ArrayList<>();
+        cars.add(new Car(this, atlas, 400, 200));
     }
 
     private void initGenerator() {
@@ -47,30 +51,30 @@ public class World {
     }
 
     private void initJerrycans() {
-        this.jerrycansToRemove = new ArrayList<>();
-        this.jerrycans = new ArrayList<>();
-        this.jerrycans.add(new Jerrycan(this, atlas, 220, 250));
+        jerrycansToRemove = new ArrayList<>();
+        jerrycans = new ArrayList<>();
+        jerrycans.add(new Jerrycan(this, atlas, 220, 250));
     }
 
     private void initZombies() {
-        this.zombies = new ArrayList<>();
-        this.zombies.add(new Zombie(this, atlas, 100, 100));
-        this.zombies.add(new Zombie(this, atlas, 200, 50));
-        this.zombies.add(new Zombie(this, atlas, 400, 70));
-        this.zombies.add(new Zombie(this, atlas, 100, 360));
-        this.zombies.add(new Zombie(this, atlas, 130, 470));
-        this.zombies.add(new Zombie(this, atlas, 400, 400));
-        this.zombies.add(new Zombie(this, atlas, 445, 470));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies = new ArrayList<>();
+        zombies.add(new Zombie(this, atlas, 100, 100));
+        zombies.add(new Zombie(this, atlas, 200, 50));
+        zombies.add(new Zombie(this, atlas, 400, 70));
+        zombies.add(new Zombie(this, atlas, 100, 360));
+        zombies.add(new Zombie(this, atlas, 130, 470));
+        zombies.add(new Zombie(this, atlas, 400, 400));
+        zombies.add(new Zombie(this, atlas, 445, 470));
+        zombies.add(new Zombie(this, atlas, 300, 300));
 
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
-        this.zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
+        zombies.add(new Zombie(this, atlas, 300, 300));
 
 
     }
@@ -86,6 +90,8 @@ public class World {
         obstacles.add(new Rectangle(273, 250, 5, 98));
         obstacles.add(new Rectangle(175, 246, 42, 5));
         obstacles.add(new Rectangle(230, 246, 44, 5));
+
+        cars.forEach(car -> obstacles.add(new Rectangle(car.sprite.getBoundingRectangle())));
     }
 
     Player getPlayer() {
@@ -98,6 +104,7 @@ public class World {
         player.update();
         zombies.forEach(Zombie::update);
         jerrycans.forEach(Jerrycan::update);
+        cars.forEach(Car::update);
 
         computeCollisions();
         removeEntities();
@@ -150,7 +157,7 @@ public class World {
                 .stream()
                 .filter(z -> !z.equals(zombie))
                 .filter(other -> zombie.sprite.getBoundingRectangle().overlaps(other.sprite.getBoundingRectangle()))
-                .forEach(other -> zombie.collideWithZombie(other)));
+                .forEach(zombie::collideWithZombie));
     }
 
     void collideWithZombies() {
@@ -166,6 +173,7 @@ public class World {
     void render(Batch batch) {
         map.draw(batch);
         generator.render(batch);
+        cars.forEach(car -> car.render(batch));
         jerrycans.forEach(jerrycan -> jerrycan.render(batch));
         zombies.forEach(zombie -> zombie.render(batch));
         player.render(batch);

@@ -20,7 +20,7 @@ public class Zombie extends Entity {
     private static final float PURSUE_DISTANCE = 3000;
 
 
-    private static final float RANDOM_DELAY = 50;
+    private static final float RANDOM_DELAY = 10;
     private static final Random random = new Random();
 
     private State state = State.ROAMING;

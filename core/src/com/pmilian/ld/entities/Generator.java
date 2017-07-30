@@ -18,7 +18,6 @@ public class Generator  {
     private Animation<TextureRegion> animation;
     private float stateTime = 0;
 
-
     public Generator(TextureAtlas atlas, float x, float y, float width, float height) {
         animation = new Animation<>(0.13f, atlas.findRegions("generator"), Animation.PlayMode.LOOP);
         this.x = x;

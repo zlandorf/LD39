@@ -23,6 +23,7 @@ public class Entity {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
+        sprite.setPosition(x, y);
     }
 
     public void update() {
