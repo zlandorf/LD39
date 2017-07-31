@@ -1,3 +1,5 @@
+# The Safe Zone
+
 The generator needs more fuel to continue playing your console.
 
 It's the zombie apocalypse but you still need entertainment.
